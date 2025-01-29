@@ -36,6 +36,7 @@ stripe = "^11.4.1"
 celery = "^5.4.0"
 eventlet = "^0.38.2"
 django-celery-beat = "^2.7.0"
+nullable = "^0.2.0"
 
 [build-system]
 requires = ["poetry-core"]

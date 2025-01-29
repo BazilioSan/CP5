@@ -992,6 +992,17 @@ files = [
 ]
 
 [[package]]
+name = "nullable"
+version = "0.2.0"
+description = "Typed Null support"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "nullable-0.2.0-py3-none-any.whl", hash = "sha256:3faea4e40fbd0b23080df2bb77113aa6a5d6eaaa148731aab73b1a045b9f35cf"},
+    {file = "nullable-0.2.0.tar.gz", hash = "sha256:d42011b1634750e1df528a86781f3d0abd92d2aba8211c91a9182880a1753307"},
+]
+
+[[package]]
 name = "numpy"
 version = "2.2.2"
 description = "Fundamental package for array computing in Python"
@@ -1811,4 +1822,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f3fde098e451c547dd312c063c752d5c44ddf8808ea0d8acd4c2384ae4db1d40"
+content-hash = "dbed497d7ff5e59189d7b6b8a869b3c812c271fc55af368ed6aa73fc8e86367f"

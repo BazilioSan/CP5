@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class User(AbstractUser):
     """User model"""
 
@@ -40,6 +41,12 @@ class User(AbstractUser):
         blank=True,
         null=True,
         help_text="Enter city",
+    )
+    username_tg = models.CharField(
+        max_length=255, verbose_name="username tg", null=True, blank=True
+    )
+    chat_id = models.CharField(
+        max_length=255, verbose_name="chat_id", null=True, blank=True
     )
 
     USERNAME_FIELD = "email"
