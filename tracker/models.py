@@ -30,6 +30,12 @@ class Habits(models.Model):
         default=timezone.timedelta(seconds=60), verbose_name="Время на выполнения"
     )
     is_published = models.BooleanField(default=True, verbose_name="Признак публичности")
+    last_action_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name="Дата последнего выполнения привычки",
+        help_text="Введите дату последнего выполнения привычки",
+    )
 
     class Meta:
         verbose_name = "Привычка"

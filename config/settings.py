@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "tracker",
+    "django_celery_beat",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -58,12 +60,13 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",  # Замените на адрес вашего фронтенд-сервера
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://read-and-write.example.com",  #  Замените на адрес вашего фронтенд-сервера
-    # и добавьте адрес бэкенд-сервера
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = False
@@ -194,9 +197,12 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     "task-name": {
-        "task": "users.tasks.user_last_login",  # Путь к задаче
+        "task": "tracker.tasks.habit_to_do_reminder",  # Путь к задаче
         "schedule": timedelta(
-            minutes=10
+            minutes=2
         ),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
+
+TELEGRAM_URL = "https://api.telegram.org/bot"
+BOT_TOKEN = os.getenv("BOT_TOKEN")

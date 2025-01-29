@@ -1,13 +1,17 @@
 from rest_framework.serializers import ModelSerializer
+
+from users.serializers import UserSerializer
+
 from .models import Habits
 from .validators import HabitValidator
-from .validators import action_time, action_periodicity
 
 
 class HabitsSerializer(ModelSerializer):
+    """Сериализатор привычки."""
 
-    creator = UserSerializer(read_only=True)
+    creater = UserSerializer(read_only=True)
 
     class Meta:
         model = Habits
         fields = "__all__"
+        validators = [HabitValidator(field="__all__")]

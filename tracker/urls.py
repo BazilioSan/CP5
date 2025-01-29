@@ -1,3 +1,4 @@
+from django.urls import path
 from tracker.apps import TrackerConfig
 from .views import (
     HabitsListApiView,

@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from rest_framework.generics import (
     CreateAPIView,
     DestroyAPIView,
@@ -8,7 +10,6 @@ from rest_framework.generics import (
 from .models import Habits
 from .serializers import HabitsSerializer
 from users.permissions import IsCreator
-from users.models import User
 from .pagination import PageSize
 
 
@@ -35,7 +36,9 @@ class HabitsCreateApiView(CreateAPIView):
     serializer_class = HabitsSerializer
 
     def perform_create(self, serializer):
-        habit = serializer.save(creator=self.request.user)
+        habit = serializer.save(
+            creator=self.request.user, last_action_date=timezone.now().date()
+        )
         habit.save()
 
 

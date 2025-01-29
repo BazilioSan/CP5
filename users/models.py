@@ -43,7 +43,7 @@ class User(AbstractUser):
         help_text="Enter city",
     )
     username_tg = models.CharField(
-        max_length=255, verbose_name="username tg", null=True, blank=True
+        max_length=255, verbose_name="username_tg", null=True, blank=True
     )
     chat_id = models.CharField(
         max_length=255, verbose_name="chat_id", null=True, blank=True

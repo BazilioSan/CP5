@@ -1,4 +1,3 @@
-from django.urls import path
 from users.apps import UsersConfig
 
 from django.urls import path
