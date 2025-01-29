@@ -26,10 +26,10 @@ class Habits(models.Model):
     )
     period = models.PositiveIntegerField()
     reward = models.CharField(max_length=100, **NULLABLE, verbose_name="Вознаграждение")
-    time_to_action = models.PositiveIntegerField(
-        default=60, verbose_name="Время на выполнения"
-    # time_to_action = models.DurationField(
-    #     default=timezone.timedelta(seconds=60), verbose_name="Время на выполнения"
+    # time_to_action = models.PositiveIntegerField(
+    #     default=60, verbose_name="Время на выполнения"
+    time_to_action = models.DurationField(
+        default=timezone.timedelta(seconds=60), verbose_name="Время на выполнение"
     )
     is_published = models.BooleanField(default=True, verbose_name="Признак публичности")
     last_action_date = models.DateField(

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -16,7 +18,7 @@ class HabitsTestCase(APITestCase):
             action="Test",
             is_pleasant=True,
             period=100,
-            time_to_action=5,
+            time_to_action=timedelta(seconds=300),
             is_published=True,
         )
         self.client.force_authenticate(user=self.user)
@@ -37,7 +39,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 5,
-            "time_to_action": 100,
+            "time_to_action": str(timedelta(seconds=300)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "",
@@ -54,7 +56,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test_new",
             "is_pleasant": True,
             "period": 2,
-            "time_to_do": 100,
+            "time_to_action": str(timedelta(seconds=300)),
             "is_published": True,
             "connection_wont": "",
             "reward": "",
@@ -131,7 +133,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 5,
-            "time_to_action": 1000,
+            "time_to_action": str(timedelta(seconds=3000)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "",
@@ -151,7 +153,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 10,
-            "time_to_action": 100,
+            "time_to_action": str(timedelta(seconds=300)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "",
@@ -172,7 +174,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 2,
-            "time_to_action": 100,
+            "time_to_action": str(timedelta(seconds=300)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "Test",
@@ -193,7 +195,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": True,
             "period": 2,
-            "time_to_action": 100,
+            "time_to_action": str(timedelta(seconds=300)),
             "is_published": True,
             "connection_wont": "",
             "reward": "Test",
