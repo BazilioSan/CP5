@@ -9,7 +9,7 @@ from .validators import HabitValidator
 class HabitsSerializer(ModelSerializer):
     """Сериализатор привычки."""
 
-    creater = UserSerializer(read_only=True)
+    creator = UserSerializer(read_only=True)
 
     class Meta:
         model = Habits
