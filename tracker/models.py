@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.db import models
-from users.constants import NULLABLE
+from tracker.constants import NULLABLE
 from users.models import User
 
 
@@ -12,11 +12,11 @@ class Habits(models.Model):
         ("monthly", "Ежемесячная"),
     )
 
-    user = models.ForeignKey(
+    creator = models.ForeignKey(
         User, on_delete=models.CASCADE, **NULLABLE, verbose_name="Создатель"
     )
     place = models.CharField(max_length=100, verbose_name="Место")
-    time = models.TimeField(default=timezone.now(), verbose_name="Время выполнения")
+    time = models.TimeField(default=timezone.now, verbose_name="Время выполнения")
     action = models.CharField(max_length=100, verbose_name="Действие")
     is_pleasant = models.BooleanField(
         default=True, verbose_name="Признак приятной привычки"

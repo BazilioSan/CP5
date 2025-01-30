@@ -11,9 +11,9 @@ from users.models import User
 class HabitsTestCase(APITestCase):
     def setUp(self):
         """Подготовка исходных данных для тестирования."""
-        self.user = User.objects.create(email="test@test.com")
+        self.creator = User.objects.create(email="test@test.com")
         self.test_habit = Habits.objects.create(
-            user=self.user,
+            user=self.creator,
             place="Test",
             action="Test",
             is_pleasant=True,
@@ -21,7 +21,7 @@ class HabitsTestCase(APITestCase):
             time_to_action=timedelta(seconds=300),
             is_published=True,
         )
-        self.client.force_authenticate(user=self.user)
+        self.client.force_authenticate(user=self.creator)
 
     def test_habit_retrieve(self):
         """Тестирование получения информации о привычке."""
@@ -82,7 +82,7 @@ class HabitsTestCase(APITestCase):
         result = {
             "id": self.test_habit.id,
             "is_published": self.test_habit.is_public,
-            "creator": self.user.id,
+            "creator": self.creator.id,
         }
 
         # выбираем из response данные для сравнения - d привычки, признак публичности привычки и id создателя привычки
@@ -108,7 +108,7 @@ class HabitsTestCase(APITestCase):
         result = {
             "id": self.test_habit.id,
             "action": self.test_habit.action,
-            "creator": self.user.id,
+            "creator": self.creator.id,
         }
 
         # выбираем из response данные для сравнения - id привычки, действие привычки и id создателя привычки

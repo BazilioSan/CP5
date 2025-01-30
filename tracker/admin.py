@@ -7,7 +7,7 @@ from .models import Habits
 class HabitsAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "user",
+        "creator",
         "place",
         "time",
         "action",
@@ -20,4 +20,4 @@ class HabitsAdmin(admin.ModelAdmin):
         "last_action_date",
     )
     search_fields = ["action", "time", "place"]
-    list_filter = ["user", "is_pleasant", "is_published"]
+    list_filter = ["creator", "is_pleasant", "is_published"]
