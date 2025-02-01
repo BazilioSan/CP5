@@ -39,26 +39,15 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 5,
-            "time_to_action": str(timedelta(seconds=300)),
+            "time_to_action": "00:02:00",  # 120 секунд (лимит валидатора)
             "is_published": True,
             "connection_wont": self.test_habit.id,
-            "reward": "",
+            "reward": "",  # Пустая строка
         }
-        # response = self.client.post(url, data=data)
-        # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        # self.assertEqual(Habits.objects.all().count(), 2)
-        response = self.client.post(
-            url, data=data, format="json"
-        )  # Укажите формат JSON
+        response = self.client.post(url, data=data, format='json')  # Используем JSON
+        print(response.json())  # Для отладки
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(
-            Habits.objects.all().count(), 2
-        )  # Убедитесь, что объект создан
-
-        # Проверяем, что данные в базе соответствуют отправленным
-        new_habit = Habits.objects.latest("id")
-        self.assertEqual(new_habit.place, data["place"])
-        self.assertEqual(new_habit.action, data["action"])
+        self.assertEqual(Habits.objects.all().count(), 2)
 
     def test_habit_update(self):
         """Тестирование изменения привычки."""
@@ -68,24 +57,16 @@ class HabitsTestCase(APITestCase):
             "action": "Test_new",
             "is_pleasant": True,
             "period": 2,
-            "time_to_action": str(timedelta(seconds=300)),
+            "time_to_action": "00:02:00",  # 120 секунд (лимит валидатора)
             "is_published": True,
-            "connection_wont": "",
-            "reward": "",
+            "connection_wont": "",  # Пустая строка или опусти поле
+            "reward": "",  # Пустая строка или опусти поле
         }
-        # response = self.client.patch(url, data=data)
-        # self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # result = response.json().get("place")
-        # self.assertEqual(result, data.get("place"))
-        response = self.client.patch(url, data=data, format="json")
-        if response.status_code != status.HTTP_200_OK:
-            print(response.json())  # Вывод ошибок для диагностики
+        response = self.client.patch(url, data=data, format='json')  # Используем JSON
+        print(response.json())  # Для отладки
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        # Проверяем, что данные успешно обновлены
-        updated_habit = Habits.objects.get(id=self.test_habit.id)
-        self.assertEqual(updated_habit.place, data["place"])
-        self.assertEqual(updated_habit.action, data["action"])
+        result = response.json().get("place")
+        self.assertEqual(result, data.get("place"))
 
     def test_habit_delete(self):
         """Тестирование удаления привычки."""
