@@ -28,7 +28,7 @@ class HabitsUsersListApiView(ListAPIView):
     pagination_class = PageSize
 
     def get_queryset(self):
-        return Habits.objects.filter(creator=self.request.user)
+        return Habits.objects.filter(user=self.request.user)
 
 
 class HabitsCreateApiView(CreateAPIView):
@@ -37,7 +37,7 @@ class HabitsCreateApiView(CreateAPIView):
 
     def perform_create(self, serializer):
         habit = serializer.save(
-            creator=self.request.user, last_action_date=timezone.now().date()
+            user=self.request.user, last_action_date=timezone.now().date()
         )
         habit.save()
 

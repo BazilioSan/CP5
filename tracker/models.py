@@ -12,7 +12,7 @@ class Habits(models.Model):
         ("monthly", "Ежемесячная"),
     )
 
-    creator = models.ForeignKey(
+    user = models.ForeignKey(
         User, on_delete=models.CASCADE, **NULLABLE, verbose_name="Создатель"
     )
     place = models.CharField(max_length=100, verbose_name="Место")

@@ -11,9 +11,9 @@ from users.models import User
 class HabitsTestCase(APITestCase):
     def setUp(self):
         """Подготовка исходных данных для тестирования."""
-        self.creator = User.objects.create(email="test@test.com")
+        self.user = User.objects.create(email="test@test.com")
         self.test_habit = Habits.objects.create(
-            user=self.creator,
+            user=self.user,
             place="Test",
             action="Test",
             is_pleasant=True,
@@ -21,7 +21,7 @@ class HabitsTestCase(APITestCase):
             time_to_action=timedelta(seconds=300),
             is_published=True,
         )
-        self.client.force_authenticate(user=self.creator)
+        self.client.force_authenticate(user=self.user)
 
     def test_habit_retrieve(self):
         """Тестирование получения информации о привычке."""
@@ -82,17 +82,17 @@ class HabitsTestCase(APITestCase):
         result = {
             "id": self.test_habit.id,
             "is_published": self.test_habit.is_public,
-            "creator": self.creator.id,
+            "user": self.user.id,
         }
 
         # выбираем из response данные для сравнения - d привычки, признак публичности привычки и id создателя привычки
         habit_id = response.json().get("results")[0].get("id")
-        creator_id = response.json().get("results")[0].get("creator").get("id")
+        user_id = response.json().get("results")[0].get("user").get("id")
         is_published = response.json().get("results")[0].get("is_published")
         result_to_assert = {
             "id": habit_id,
             "is_published": is_published,
-            "creator": creator_id,
+            "user": user_id,
         }
 
         # сравнение кодов ответа с ожидаемыми данными и подготовленных данных с выбранными
@@ -108,17 +108,17 @@ class HabitsTestCase(APITestCase):
         result = {
             "id": self.test_habit.id,
             "action": self.test_habit.action,
-            "creator": self.creator.id,
+            "user": self.user.id,
         }
 
         # выбираем из response данные для сравнения - id привычки, действие привычки и id создателя привычки
         habit_id = response.json().get("results")[0].get("id")
         action = response.json().get("results")[0].get("action")
-        creator_id = response.json().get("results")[0].get("creator").get("id")
+        user_id = response.json().get("results")[0].get("user").get("id")
         result_to_assert = {
             "id": habit_id,
             "action": action,
-            "creator": creator_id,
+            "user": user_id,
         }
 
         # сравнение кодов ответа с ожидаемыми данными и подготовленных данных с выбранными

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from rest_framework import serializers
 
 
@@ -8,7 +10,7 @@ class HabitValidator:
         self.field = field
 
     def __call__(self, value):
-        if value["time_to_action"] > 120:
+        if value["time_to_action"] > timedelta(seconds=120):
             raise serializers.ValidationError(
                 "Время выполнения привычки не может превышать 120 секунд."
             )
