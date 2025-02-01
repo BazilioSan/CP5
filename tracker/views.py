@@ -1,25 +1,22 @@
 from django.utils import timezone
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 
-from rest_framework.generics import (
-    CreateAPIView,
-    DestroyAPIView,
-    ListAPIView,
-    RetrieveAPIView,
-    UpdateAPIView,
-)
-from .models import Habits
-from .serializers import HabitsSerializer
 from users.permissions import IsCreator
+
+from .models import Habits
 from .pagination import PageSize
+from .serializers import HabitsSerializer
 
 
-class HabitsListApiView(ListAPIView):
+class HabitsPublicListApiView(ListAPIView):
     queryset = Habits.objects.all()
     serializer_class = HabitsSerializer
     pagination_class = PageSize
 
     def get_queryset(self):
-        return Habits.objects.filter(is_public=True)
+        return Habits.objects.filter(is_published=True)
 
 
 class HabitsUsersListApiView(ListAPIView):

@@ -1,4 +1,7 @@
+import getpass
+
 from django.core.management import BaseCommand
+
 from users.models import User
 
 #
@@ -11,8 +14,6 @@ from users.models import User
 #         user.is_staff = True
 #         user.is_superuser = True
 #         user.save()
-
-import getpass
 
 
 class Command(BaseCommand):

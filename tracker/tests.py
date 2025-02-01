@@ -29,7 +29,7 @@ class HabitsTestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         result = response.json().get("action")
-        self.assertEqual(result, self.test_habit.action_to_do)
+        self.assertEqual(result, self.test_habit.action)
 
     def test_habit_create(self):
         """Тестирование создания новой привычки."""
@@ -44,9 +44,21 @@ class HabitsTestCase(APITestCase):
             "connection_wont": self.test_habit.id,
             "reward": "",
         }
-        response = self.client.post(url, data=data)
+        # response = self.client.post(url, data=data)
+        # self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        # self.assertEqual(Habits.objects.all().count(), 2)
+        response = self.client.post(
+            url, data=data, format="json"
+        )  # Укажите формат JSON
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Habits.objects.all().count(), 2)
+        self.assertEqual(
+            Habits.objects.all().count(), 2
+        )  # Убедитесь, что объект создан
+
+        # Проверяем, что данные в базе соответствуют отправленным
+        new_habit = Habits.objects.latest("id")
+        self.assertEqual(new_habit.place, data["place"])
+        self.assertEqual(new_habit.action, data["action"])
 
     def test_habit_update(self):
         """Тестирование изменения привычки."""
@@ -61,10 +73,19 @@ class HabitsTestCase(APITestCase):
             "connection_wont": "",
             "reward": "",
         }
-        response = self.client.patch(url, data=data)
+        # response = self.client.patch(url, data=data)
+        # self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # result = response.json().get("place")
+        # self.assertEqual(result, data.get("place"))
+        response = self.client.patch(url, data=data, format="json")
+        if response.status_code != status.HTTP_200_OK:
+            print(response.json())  # Вывод ошибок для диагностики
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        result = response.json().get("place")
-        self.assertEqual(result, data.get("place"))
+
+        # Проверяем, что данные успешно обновлены
+        updated_habit = Habits.objects.get(id=self.test_habit.id)
+        self.assertEqual(updated_habit.place, data["place"])
+        self.assertEqual(updated_habit.action, data["action"])
 
     def test_habit_delete(self):
         """Тестирование удаления привычки."""
@@ -81,7 +102,7 @@ class HabitsTestCase(APITestCase):
         # готовим данные для сравнения - id привычки, признак публичности привычки и id создателя привычки
         result = {
             "id": self.test_habit.id,
-            "is_published": self.test_habit.is_public,
+            "is_published": self.test_habit.is_published,
             "user": self.user.id,
         }
 
@@ -153,7 +174,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 10,
-            "time_to_action": str(timedelta(seconds=300)),
+            "time_to_action": str(timedelta(seconds=120)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "",
@@ -174,7 +195,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": False,
             "period": 2,
-            "time_to_action": str(timedelta(seconds=300)),
+            "time_to_action": str(timedelta(seconds=120)),
             "is_published": True,
             "connection_wont": self.test_habit.id,
             "reward": "Test",
@@ -195,7 +216,7 @@ class HabitsTestCase(APITestCase):
             "action": "Test",
             "is_pleasant": True,
             "period": 2,
-            "time_to_action": str(timedelta(seconds=300)),
+            "time_to_action": str(timedelta(seconds=120)),
             "is_published": True,
             "connection_wont": "",
             "reward": "Test",

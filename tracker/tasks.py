@@ -1,6 +1,9 @@
-from datetime import timedelta, datetime
-from tracker.models import Habits
+from datetime import datetime, timedelta
+
 from celery import shared_task
+
+from tracker.models import Habits
+
 from .services import send_message
 
 
@@ -23,7 +26,7 @@ def habit_to_do_reminder():
                 # обновляем дату последнего действия привычки
                 habit.last_action_date = today
                 habit.save()
-    # в цикле проходимся по result и отправляем напоминания через телеграмм
+    # в цикле проходимся по result и отправляем напоминания через телеграм
     if result:
         for message, tg_id in result:
             send_message(text=message, chat_id=tg_id)
