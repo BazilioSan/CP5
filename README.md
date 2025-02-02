@@ -9,7 +9,30 @@
 ## Функционал:
 Реализация бэкенда по отслеживанию привычек пользователя, и напоминанием об их выполнении через телеграм бот
 
-## Установка:
+```bash
+git clone https://github.com/BazilioSan/CP5.git
+cd polevaya_cw_drf
+```
+ 
+2. Собрать и запустить контейнеры:
+```bash
+docker-compose up --build
+```
+ 
+3. Применить миграции:
+```bash
+docker-compose exec web python manage.py migrate
+```
+ 
+4. Создать суперпользователя:
+```bash
+docker-compose exec web python manage.py csu
+```
+ 
+5. Доступно по адресу: http://localhost:8000
+
+
+## Локальная Установка:
 
 1. Клонируйте репозиторий:
 ```
@@ -17,17 +40,15 @@ git clone github.com/BazilioSan/CP5
 ```
 2. Установите зависимости:
 ```
-pip install -r requirements.txt
-```
-либо 
-```
+pip install poetry
+poetry install
 poetry update
+
 ```
-
 3. Установите параметры доступа
-
+```
 Особые параметры доступа отсутствуют
-
+```
 ## Использование:
 
 Уточняется
