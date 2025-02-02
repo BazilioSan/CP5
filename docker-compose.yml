@@ -51,7 +51,7 @@ services:
   celery:
     build: .
     tty: true
-    command: celery -A config worker -l INFO
+    command: poetry run celery -A config beat -l INFO
     restart: on-failure
     depends_on:
       - redis
@@ -65,7 +65,7 @@ services:
   celery-beat:
     build: .
     tty: true
-    command: celery -A config beat -l INFO
+    command: poetry run celery -A config beat -l INFO
     restart: on-failure
     depends_on:
       - redis

@@ -20,7 +20,7 @@ ENV PATH="/root/.local/bin:${PATH}"
 COPY pyproject.toml poetry.lock* ./
 
 # Устанавливаем зависимости Python через Poetry
-RUN poetry install --no-root --no-venv
+RUN poetry install --no-root
 
 # Копируем исходный код проекта в контейнер
 COPY . .
