@@ -13,6 +13,7 @@ def habit_to_do_reminder():
     result = []
     today = datetime.now().date()
     habits = Habits.objects.filter(is_pleasant=False)
+    habits = habits.select_related('user')
     for habit in habits:
         # проверяем необходимость выполнения привычки сегодня
         if (today - habit.last_action_date).days == habit.period:
