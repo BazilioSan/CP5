@@ -11,7 +11,7 @@
 
 ```bash
 git clone https://github.com/BazilioSan/CP5.git
-cd polevaya_cw_drf
+
 ```
  
 2. Собрать и запустить контейнеры:
