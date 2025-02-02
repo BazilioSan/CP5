@@ -44,7 +44,7 @@ class HabitsTestCase(APITestCase):
             "connection_wont": self.test_habit.id,
             "reward": "",  # Пустая строка
         }
-        response = self.client.post(url, data=data, format='json')  # Используем JSON
+        response = self.client.post(url, data=data, format="json")  # Используем JSON
         print(response.json())  # Для отладки
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Habits.objects.all().count(), 2)
@@ -62,7 +62,7 @@ class HabitsTestCase(APITestCase):
             "connection_wont": "",  # Пустая строка или опусти поле
             "reward": "",  # Пустая строка или опусти поле
         }
-        response = self.client.patch(url, data=data, format='json')  # Используем JSON
+        response = self.client.patch(url, data=data, format="json")  # Используем JSON
         print(response.json())  # Для отладки
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         result = response.json().get("place")
