@@ -27,7 +27,7 @@ jobs:
 
       - name: Run Django tests with unittest
         run: |
-            python manage.py test --noinput
+            python manage.py test
         timeout-minutes: 5
         continue-on-error: false
 
@@ -36,7 +36,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          coverage run --source='.' manage.py test --noinput
+          coverage run --source='.' manage.py test
           coverage xml
           coverage html
 
