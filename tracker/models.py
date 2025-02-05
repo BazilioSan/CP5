@@ -17,7 +17,7 @@ class Habits(models.Model):
         User, on_delete=models.CASCADE, **NULLABLE, verbose_name="Создатель"
     )
     place = models.CharField(max_length=100, verbose_name="Место")
-    time = time = models.TimeField(
+    time = models.TimeField(
         default=timezone.now().time(), verbose_name="Время выполнения"
     )
     action = models.CharField(max_length=100, verbose_name="Действие")
