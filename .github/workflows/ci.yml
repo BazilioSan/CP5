@@ -25,10 +25,6 @@ jobs:
       - name: Lint with flake8
         run: flake8 .
 
-      - name: Debug environment variables
-        run: |
-          echo "SECRET_KEY: $SECRET_KEY"
-
       - name: Run Django tests with unittest
         run: python manage.py test
         env:
