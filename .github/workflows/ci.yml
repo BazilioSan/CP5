@@ -69,4 +69,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t CP5 .
+        run: docker build -t cp5 .
