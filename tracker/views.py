@@ -1,7 +1,11 @@
 from django.utils import timezone
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated
 
 from users.permissions import IsCreator
@@ -44,7 +48,6 @@ class HabitsRetrieveApiView(RetrieveAPIView):
     queryset = Habits.objects.all()
     serializer_class = HabitsSerializer
     permission_classes = [IsAuthenticated, IsCreator]
-
 
 
 class HabitsUpdateApiView(UpdateAPIView):
